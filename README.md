@@ -12,6 +12,10 @@ The `drown_volume` function erodes the skin and subcutaneous fat of the head and
 drown_volume(in_path, out_path=None, replacer='face')
 ```
 
+## Example
+
+![Example of the deidentification options compared to the original CT](https://github.com/kitamura-felipe/face_deid_ct/edit/main/face_deid_ct.jpg)
+
 ## Parameters:
 
 in_path (str): The path to the directory containing the input DICOM files.
