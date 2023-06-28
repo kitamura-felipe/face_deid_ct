@@ -14,7 +14,7 @@ drown_volume(in_path, out_path=None, replacer='face')
 
 ## Example
 
-![Example of the deidentification options compared to the original CT]([https://github.com/kitamura-felipe/face_deid_ct/edit/main/face_deid_ct.jpg](https://github.com/kitamura-felipe/face_deid_ct/blob/main/face_deid_ct.jpg?raw=true))
+![Example of the deidentification options compared to the original CT](https://github.com/kitamura-felipe/face_deid_ct/blob/main/face_deid_ct.jpg?raw=true)
 
 ## Parameters:
 
