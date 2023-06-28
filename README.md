@@ -18,14 +18,19 @@ drown_volume(in_path, out_path=None, replacer='face')
 
 ## Parameters:
 
-in_path (str): The path to the directory containing the input DICOM files.
-out_path (str, optional): The path to the directory where the output DICOM files will be saved. If not provided, the output files will be saved in the input directory appended by "_d".
-replacer (str, optional): Indicates what kind of pixels are going to be replaced. Default is 'face'.
+**in_path** (str): The path to the directory containing the input DICOM files.
+
+**out_path** (str, optional): The path to the directory where the output DICOM files will be saved. If not provided, the output files will be saved in the input directory appended by "_d".
+
+**replacer** (str, optional): Indicates what kind of pixels are going to be replaced. Default is 'face'.
+
 'face': replaces air and face with random values that are found in the skin and subcutaneous fat. This is the safest one to hide the face.
+
 'air': replaces air and face with -1000 HU.
+
 int: replaces air and face with int HU.
 
-Returns:
+**Returns:**
 
 The function does not return any value. Instead, it saves new DICOM files in the specified or default directory and prints the total elapsed time of the operation.
 
