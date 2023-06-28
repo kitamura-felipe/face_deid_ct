@@ -22,7 +22,9 @@ path_to_dicom_files = "/mnt/d/HeadCT"
 
 output_path = "/mnt/d/HeadCT_deid"
 
-drown_volume(path_to_dicom_files, output_path, replacer='face')
+drown_volume(in_path = path_to_dicom_files,
+             out_path = output_path,
+             replacer='face')
 ```
 
 ![Example of the deidentification options compared to the original CT](https://github.com/kitamura-felipe/face_deid_ct/blob/main/face_deid_ct.jpg?raw=true)
