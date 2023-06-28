@@ -4,7 +4,7 @@ Package to de-identify the face of patients in head CTs
 
 # Drown the volume of a head CT
 
-The `drown_volume` function erodes the skin and subcutaneous fat of the head and replaces the air around the head with a customizable pixel value, saving the exam as new DICOM files.
+The `drown_volume` function erodes the skin and subcutaneous fat of the head and replaces the air around the head with a customizable pixel value, saving the exam as new DICOM files. The analogy with drowning comes from the equivalence of filling the air around the patient with other pixel densities.
 
 ## Usage
 
