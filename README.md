@@ -1,8 +1,8 @@
 # face_deid_ct
-Function to de-identify the face of patients in head CTs
+Package to de-identify the face of patients in head CTs
 
 
-# Drown Volume Python Function
+# Drown the volume of a head CT
 
 The `drown_volume` function is a Python function designed to process DICOM files from a specified directory. The function performs several operations including binarization, retrieving the largest connected component, dilation, and applying a mask. Following these operations, random values are applied to the dilated volume based on a unique values list which is obtained from the masked volume.
 
@@ -25,6 +25,19 @@ Returns:
 
 The function does not return any value. Instead, it saves new DICOM files in the specified or default directory and prints the total elapsed time of the operation.
 
+## Requirements
+```python
+os
+pydicom
+numpy
+cv2
+matplotlib
+random
+tqdm
+time
+```
+
+Requirements are listed also in the `requirements.txt` file.
 
 ## Contribution
 Feel free to fork the project, submit issues, or make pull requests.
