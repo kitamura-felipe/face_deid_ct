@@ -10,9 +10,20 @@ The `drown_volume` function erodes the skin and subcutaneous fat of the head and
 
 ```python
 drown_volume(in_path, out_path=None, replacer='face')
+
 ```
 
 ## Example
+
+```python
+from face_deid_ct import drown_volume
+
+path_to_dicom_files = "/mnt/d/HeadCT"
+
+output_path = "/mnt/d/HeadCT_deid"
+
+drown_volume(path_to_dicom_files, output_path, replacer='face')
+```
 
 ![Example of the deidentification options compared to the original CT](https://github.com/kitamura-felipe/face_deid_ct/blob/main/face_deid_ct.jpg?raw=true)
 
