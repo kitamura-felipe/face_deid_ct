@@ -24,20 +24,8 @@ Returns:
 
 The function does not return any value. Instead, it saves new DICOM files in the specified or default directory and prints the total elapsed time of the operation.
 
-Examples
-python
-Copy code
-drown_volume('/path/to/dicom/files')
-This will process the DICOM files in the specified directory and save the output files in the same directory with "_d" appended to their names. The 'face' pixels will be replaced with random values found in the skin and subcutaneous fat.
-
-python
-Copy code
-drown_volume('/path/to/dicom/files', out_path='/path/to/output/directory', replacer='air')
-This will process the DICOM files in the specified directory and save the output files in a different directory. The 'air' and 'face' pixels will be replaced with -1000 HU.
 
 Contribution
 Feel free to fork the project, submit issues, or make pull requests.
 
-vbnet
-Copy code
-This README file gives a brief overview of what the `drown_vol
+
