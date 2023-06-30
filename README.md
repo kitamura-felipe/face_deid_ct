@@ -6,6 +6,8 @@ Package to de-identify the face of patients in head CTs
 
 The `drown_volume` function erodes the skin and subcutaneous fat of the head and replaces the air around the head with a customizable pixel value, saving the exam as new DICOM files. The analogy with drowning comes from the equivalence of filling the air around the patient with other pixel densities.
 
+This function was written with the help of GPT4.
+
 This code is an adaptation from the idea in this [nice paper](https://pubs.rsna.org/doi/10.1148/radiol.2020192617) published in [_Radiology_](https://pubs.rsna.org/journal/radiology). 
 
 ## Example
