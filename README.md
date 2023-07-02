@@ -60,6 +60,7 @@ numpy
 opencv-python
 matplotlib
 tqdm
+jupyter
 ```
 
 Requirements are listed also in the `requirements.txt` file.
