@@ -12,12 +12,7 @@ This code is an adaptation from the idea in this [nice paper](https://pubs.rsna.
 
 ## Demo
 
-<iframe
-	src="https://felipekitamura-face-deid-ct.hf.space"
-	frameborder="0"
-	width="850"
-	height="450"
-></iframe>
+Check out the demo app [here](https://felipekitamura-face-deid-ct.hf.space).
 
 
 ## Example
