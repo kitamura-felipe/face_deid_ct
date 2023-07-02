@@ -50,14 +50,11 @@ The `drown_volume` function is a Python function designed to process DICOM files
 
 ## Requirements
 ```python
-os
 pydicom
 numpy
-cv2
+opencv-python
 matplotlib
-random
 tqdm
-time
 ```
 
 Requirements are listed also in the `requirements.txt` file.
