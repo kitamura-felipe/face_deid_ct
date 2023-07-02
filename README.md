@@ -6,6 +6,10 @@ Package to de-identify the face of patients in head CTs
 
 The `drown_volume` function erodes the skin and subcutaneous fat of the head and replaces the air around the head with a customizable pixel value, saving the exam as new DICOM files. The analogy with drowning comes from the equivalence of filling the air around the patient with other pixel densities.
 
+We believe filling the air with pixel densities similar to the ones found in the skin is the best way to blur the face. The reason is there is no way to window the 3D rendering in a way to show the face. If you do not remove the 'skin Hounsfield units', the 'air volume' is not transparent. If you window to remove the 'air volume', then you automatically remove the face.
+
+There is a concern that altering the air pixels might influence ML models. We believe it might influence if the training and testing data are processed in different way. However, if the training and testing data are processed the same way, we believe this pixels alteration will not reduce model performance.
+
 This function was written with the help of GPT4.
 
 This code is an adaptation from the idea in this [nice paper](https://pubs.rsna.org/doi/10.1148/radiol.2020192617) published in [_Radiology_](https://pubs.rsna.org/journal/radiology). 
