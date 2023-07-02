@@ -10,6 +10,16 @@ This function was written with the help of GPT4.
 
 This code is an adaptation from the idea in this [nice paper](https://pubs.rsna.org/doi/10.1148/radiol.2020192617) published in [_Radiology_](https://pubs.rsna.org/journal/radiology). 
 
+## Demo
+
+<script
+	type="module"
+	src="https://gradio.s3-us-west-2.amazonaws.com/3.35.2/gradio.js"
+></script>
+
+<gradio-app src="https://felipekitamura-face-deid-ct.hf.space"></gradio-app>
+
+
 ## Example
 
 ```python
