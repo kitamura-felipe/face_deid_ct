@@ -4,9 +4,23 @@ import numpy as np
 import cv2
 from matplotlib import pyplot as plt
 import random
-from tqdm import tqdm
 import time
+import tqdm
+from IPython.core.display import display, HTML
 
+# Determine if we are in a Jupyter notebook
+try:
+    shell = get_ipython().__class__.__name__
+    if shell == 'ZMQInteractiveShell':
+        # We are in Jupyter, use tqdm.notebook
+        from tqdm.notebook import tqdm
+    else:
+        raise Exception()
+except:
+    # We are in a terminal, use standard tqdm
+    from tqdm import tqdm
+
+    
 FACE_MAX_VALUE = 50
 FACE_MIN_VALUE = -125
 
@@ -216,9 +230,9 @@ def drown_volume(in_path, out_path='deid_ct', replacer='face'):
 
     dirs = list_dicom_directories(in_path)
     
-    for _d in tqdm(dirs):
+    for _d in tqdm(dirs, desc="List of studies"):
 
-        with tqdm(total=8, desc="Processing DICOM Files", ncols=80) as pbar:
+        with tqdm(total=8, desc="Processing DICOM Files", leave=False) as pbar:
             # Load the DICOM files
             slices = load_scan(_d)
             pbar.update()
@@ -264,4 +278,4 @@ def drown_volume(in_path, out_path='deid_ct', replacer='face'):
             pbar.update()
 
         elapsed_time = time.time() - start_time
-        print(f"Total elapsed time for 1 study: {elapsed_time} seconds")
+        print(f"Total elapsed time: {elapsed_time} seconds")
