@@ -13,6 +13,34 @@ FACE_MIN_VALUE = -125
 AIR_THRESHOLD  = -800
 KERNEL_SIZE    = 35
 
+
+
+def is_dicom(file_path):
+    try:
+        pydicom.dcmread(file_path)
+        return True
+    except Exception:
+        return False
+
+def get_first_directory(path):
+    # Normalize the path to always use Unix-style path separators
+    normalized_path = path.replace("\\", "/")
+    split_path = normalized_path.split("/")[-1]
+    
+    return split_path  # Return None if no directories are found
+
+def list_dicom_directories(root_dir):
+    dicom_dirs = set()
+    
+    for root, dirs, files in os.walk(root_dir):
+        for file in files:
+            file_path = os.path.join(root, file)
+            if is_dicom(file_path):
+                dicom_dirs.add(root)
+                break
+                
+    return list(dicom_dirs)
+
 def load_scan(path):
     slices = [pydicom.read_file(path + '/' + s) for s in os.listdir(path)]
     slices.sort(key = lambda x: float(x.ImagePositionPatient[2]))
@@ -166,7 +194,7 @@ def save_new_dicom_files(new_volume, original_dir, out_path, app="_d"):
 
 
 
-def drown_volume(in_path, out_path=None, replacer='face'):
+def drown_volume(in_path, out_path='deid_ct', replacer='face'):
     """
     Processes DICOM files from the provided directory by binarizing, getting the largest connected component, 
     dilating and applying mask. Then applies random values to the dilated volume based on a unique values list 
@@ -186,49 +214,54 @@ def drown_volume(in_path, out_path=None, replacer='face'):
     """
     start_time = time.time()
 
-    with tqdm(total=8, desc="Processing DICOM Files", ncols=80) as pbar:
-        # Load the DICOM files
-        slices = load_scan(in_path)
-        pbar.update()
+    dirs = list_dicom_directories(in_path)
+    
+    for _d in tqdm(dirs):
 
-        # Get the pixel values and convert them to Hounsfield Units (HU)
-        pixels_hu = get_pixels_hu(slices)
-        pbar.update()
+        with tqdm(total=8, desc="Processing DICOM Files", ncols=80) as pbar:
+            # Load the DICOM files
+            slices = load_scan(_d)
+            pbar.update()
 
-        # Apply the binarization function on the HU volume
-        binarized_volume = binarize_volume(pixels_hu)
-        pbar.update()
+            # Get the pixel values and convert them to Hounsfield Units (HU)
+            pixels_hu = get_pixels_hu(slices)
+            pbar.update()
 
-        # Get the largest connected component from the binarized volume
-        processed_volume = get_largest_component_volume(binarized_volume)
-        pbar.update()
+            # Apply the binarization function on the HU volume
+            binarized_volume = binarize_volume(pixels_hu)
+            pbar.update()
 
-        # Dilate the processed volume
-        dilated_volume = dilate_volume(processed_volume)
-        pbar.update()
-        if replacer == 'face':
-            # Apply the mask to the original volume and get unique values list
-            unique_values_list = apply_mask_and_get_values(pixels_hu, dilated_volume - processed_volume)
-        elif replacer == 'air':
-            unique_values_list = [0]
-        else:
-            try:
-                replacer = int(replacer)
-                unique_values_list = [replacer]
-            except:
-                print('replacer must be either air, face, or an integer number in Hounsfield units, but ' + str(replacer) + ' was provided.')
-                print('replacing with face')
+            # Get the largest connected component from the binarized volume
+            processed_volume = get_largest_component_volume(binarized_volume)
+            pbar.update()
+
+            # Dilate the processed volume
+            dilated_volume = dilate_volume(processed_volume)
+            pbar.update()
+            if replacer == 'face':
+                # Apply the mask to the original volume and get unique values list
                 unique_values_list = apply_mask_and_get_values(pixels_hu, dilated_volume - processed_volume)
-            
-        pbar.update()
+            elif replacer == 'air':
+                unique_values_list = [0]
+            else:
+                try:
+                    replacer = int(replacer)
+                    unique_values_list = [replacer]
+                except:
+                    print('replacer must be either air, face, or an integer number in Hounsfield units, but ' + str(replacer) + ' was provided.')
+                    print('replacing with face')
+                    unique_values_list = apply_mask_and_get_values(pixels_hu, dilated_volume - processed_volume)
 
-        # Apply random values to the dilated volume based on the unique values list
-        new_volume = apply_random_values_optimized(pixels_hu, dilated_volume, unique_values_list)
-        pbar.update()
+            pbar.update()
 
-        # Save the new DICOM files
-        save_new_dicom_files(new_volume, in_path, out_path)
-        pbar.update()
+            # Apply random values to the dilated volume based on the unique values list
+            new_volume = apply_random_values_optimized(pixels_hu, dilated_volume, unique_values_list)
+            pbar.update()
 
-    elapsed_time = time.time() - start_time
-    print(f"Total elapsed time: {elapsed_time} seconds")
+            # Save the new DICOM files
+            out_path_n = out_path + "/" + get_first_directory(_d)
+            save_new_dicom_files(new_volume, _d, out_path_n)
+            pbar.update()
+
+        elapsed_time = time.time() - start_time
+        print(f"Total elapsed time for 1 study: {elapsed_time} seconds")
