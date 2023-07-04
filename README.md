@@ -65,6 +65,7 @@ opencv-python
 matplotlib
 tqdm
 jupyter
+python-gdcm
 ```
 
 Requirements are listed also in the `requirements.txt` file.
