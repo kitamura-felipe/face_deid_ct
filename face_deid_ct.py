@@ -193,6 +193,7 @@ def save_new_dicom_files(new_volume, original_dir, out_path, app="_d"):
 
         # Read the file
         ds = pydicom.dcmread(dicom_file)
+        ds.decompress()
 
         # Revert the slope and intercept operation on the slice
         new_slice = (new_volume[i] - ds.RescaleIntercept) / ds.RescaleSlope
