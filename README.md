@@ -33,7 +33,7 @@ drown_volume(in_path = path_to_dicom_files,
              replacer='face')
 ```
 
-![Example of the deidentification options compared to the original CT](https://github.com/kitamura-felipe/face_deid_ct/blob/main/face_deid_ct.jpg?raw=true)
+![Example of the deidentification options compared to the original CT](https://github.com/kitamura-felipe/face_deid_ct/blob/main/face_deid_ct_hair.jpg?raw=true)
 
 ## Parameters:
 
